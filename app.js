@@ -1,6 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
-
+const mongoose = require('mongoose')
 const app = express()
 
 //Import Routes
@@ -33,6 +33,15 @@ app.get('/', (req, res) => {
 
 // Create server 
 const PORT = process.env.PORT || 8080
-app.listen(PORT,()=> {
-    console.log(`Server is running on port ${PORT}`)
+//3MnOUqdPGJwMqrK5
+mongoose.connect('mongodb+srv://nahar:nahar741@cluster0.qxga0.mongodb.net/blog?retryWrites=true&w=majority',{
+    useNewUrlParser: true,
+	useUnifiedTopology: true,
+}).then(()=> {
+    console.log("Database Created")
+    app.listen(PORT,()=> {
+        console.log(`Server is running on port ${PORT}`)
+    })
+}).catch(err => {
+    console.log(err)
 })

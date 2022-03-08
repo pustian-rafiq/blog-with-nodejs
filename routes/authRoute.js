@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+//mongodb+srv://<username>:<password>@cluster0.qxga0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 const {
     signupGetController,
     signupPostController,
