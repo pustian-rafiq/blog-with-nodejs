@@ -6,6 +6,10 @@ const app = express()
 //Import Routes
 const authRoutes = require('./routes/authRoute')
 
+//Playground Routes
+const validatorRoutes = require('./playground/validator')
+
+
 
 // Setup View Engine
 app.set('view engine','ejs')
@@ -23,7 +27,7 @@ const middleware =[
 app.use(middleware)
 
 app.use('/auth', authRoutes)
-
+app.use('/playground', validatorRoutes)
 // Route routes 
 app.get('/', (req, res) => {
     res.json({
