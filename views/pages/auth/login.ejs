@@ -11,11 +11,17 @@
                         <form action="/auth/login" method="post">
                             <div class="mb-3 mt-3">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" placeholder="Enter your email address" name="email" id="email">
+                                <input type="text" class="form-control <%= error.email ? 'is-invalid' : '' %> " placeholder="Enter your email address" name="email" id="email">
+                                <div class="invalid-feedback">
+                                    <%= error.email && error.email %>
+                                 </div>
                             </div>
                             <div class="mb-3 mt-3">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" placeholder="Enter your password" name="password" id="password">
+                                <input type="password" class="form-control <%= error.password ? 'is-invalid' : '' %> " placeholder="Enter your password" name="password" id="password">
+                                <div class="invalid-feedback">
+                                    <%= error.password && error.password %>
+                                 </div>
                             </div>
                            
                             <div  class="mb-3 mt-3">
