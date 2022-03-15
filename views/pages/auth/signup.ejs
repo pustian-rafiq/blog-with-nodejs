@@ -11,19 +11,31 @@
                         <form action="/auth/signup" method="post">
                             <div class="mb-3 mt-3">
                                 <label for="username">Username(Must be unique)</label>
-                                <input type="text" class="form-control" placeholder="ENter your username" id="username" name="username">
+                                <input type="text" class="form-control <%= error.username ? 'is-invalid' : '' %> " placeholder="Enter your username" id="username" name="username" value=" <%= value.username ? value.username : '' %> ">
+                                <div class="invalid-feedback">
+                                   <%= error.username && error.username %>
+                                </div>
                             </div>
                             <div class="mb-3 mt-3">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" placeholder="Enter your email address" name="email" id="email">
+                                <input type="text" class="form-control <%= error.email ? 'is-invalid' : '' %> " placeholder="Enter your email address" name="email" id="email" value=" <%= value.email ? value.email : '' %> ">
+                                <div class="invalid-feedback">
+                                    <%= error.email && error.email %>
+                                 </div>
                             </div>
                             <div class="mb-3 mt-3">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" placeholder="Enter your password" name="password" id="password">
+                                <input type="password" class="form-control  <%= error.password ? 'is-invalid' : '' %> " placeholder="Enter your password" name="password" id="password" value=" <%= value.password ? value.password : '' %> ">
+                                <div class="invalid-feedback">
+                                    <%= error.password && error.password %>
+                                 </div>
                             </div>
                             <div class="mb-3 mt-3">
                                 <label for="confirm_password">Confirm Password</label>
-                                <input type="password" class="form-control" placeholder="Enter your confirm password" name="confirm_password" id="confirm_password">
+                                <input type="password" class="form-control  <%= error.confirm_password ? 'is-invalid' : '' %> " placeholder="Enter your confirm password" name="confirm_password" id="confirm_password">
+                                <div class="invalid-feedback">
+                                    <%= error.confirm_password && error.confirm_password %>
+                                 </div>
                             </div>
                             <div  class="mb-3 mt-3">
                                 <input type="submit" class="form-control btn btn-primary" value="Sign Up">
