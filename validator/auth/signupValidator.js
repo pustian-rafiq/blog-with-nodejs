@@ -4,7 +4,7 @@ const User = require('../../models/User')
 
 module.exports = [
     body('username')
-    .isEmpty().withMessage('Please provide your username')
+    .not().isEmpty().withMessage('Please provide your username')
         .isLength({ min: 2, max: 15 }).withMessage('Username must be between 2 to 15 characters')
         .custom(async username => {
             let user = await User.findOne({ username })

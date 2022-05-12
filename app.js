@@ -27,7 +27,7 @@ const middleware =[
 app.use(middleware)
 
 app.use('/auth', authRoutes)
-app.use('/playground', validatorRoutes)
+//app.use('/playground', validatorRoutes)
 // Route routes 
 app.get('/', (req, res) => {
     res.json({

@@ -17,6 +17,8 @@ exports.signupGetController = (req, res, next) => {
 
 exports.signupPostController = async (req, res, next) => {
     const { username, email, password } = req.body;
+    console.log('USERNAME', username);
+    console.log('USERNAME', email);
     let errors = validationResult(req).formatWith(errorFormatter)
     if(!errors.isEmpty()) {
       return  res.render('pages/auth/signup',
@@ -42,9 +44,9 @@ exports.signupPostController = async (req, res, next) => {
         )
         let createdUser = await user.save()
         console.log("User created successfully", createdUser)
-        res.render('pages/auth/signup', { title: 'Create a new account' })
+        res.render('pages/auth/signup', { title: 'Create a new account',error:{}, value:{}  })
     } catch (err) {
-        console.log(err)
+        console.log("err",err)
         next(err)
     }
 
@@ -82,8 +84,9 @@ exports.loginPostController = async (req, res, next) => {
                 message: 'This credentials does not match.'
             })
         }
-        console.log("Successfully logged in to your account")
-        res.render('pages/auth/login', { title: 'Login to your account' })
+       res.setHeader('Set-Cookie', 'isLoggedIn=true')
+       console.log("Logging in...")
+        res.render('pages/auth/login', { title: 'Login to your account',error:{} })
 
     } catch (err) {
         console.log(err)
