@@ -55,6 +55,9 @@ exports.signupPostController = async (req, res, next) => {
 
 
 exports.loginGetController = (req, res, next) => {
+    console.log("session",req.session)
+    console.log("session",req.session.isLoggedIn)
+    console.log("session",req.session.user)
     res.render('pages/auth/login', { title: 'Login to your account',error:{} })
 }
 
@@ -84,7 +87,10 @@ exports.loginPostController = async (req, res, next) => {
                 message: 'This credentials does not match.'
             })
         }
-       res.setHeader('Set-Cookie', 'isLoggedIn=true')
+      // res.setHeader('Set-Cookie', 'isLoggedIn=true')
+      // set session and cookie 
+      req.session.isLoggedIn = true
+      req.session.user = user
        console.log("Logging in...")
         res.render('pages/auth/login', { title: 'Login to your account',error:{} })
 
