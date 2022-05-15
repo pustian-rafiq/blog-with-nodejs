@@ -55,9 +55,9 @@ exports.signupPostController = async (req, res, next) => {
 
 
 exports.loginGetController = (req, res, next) => {
-    console.log("session",req.session)
-    console.log("session",req.session.isLoggedIn)
-    console.log("session",req.session.user)
+    // console.log("session",req.session)
+    // console.log("session",req.session.isLoggedIn)
+    // console.log("session",req.session.user)
     res.render('pages/auth/login', { title: 'Login to your account',error:{} })
 }
 

@@ -3,8 +3,24 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const app = express()
 const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session);
+const dotenv = require('dotenv')
+dotenv.config()
+
+// Store session information
+var store = new MongoDBStore({
+    uri: process.env.MONGODB_URL,
+    collection: 'sessions',
+    expires: 1000 * 60 * 60 * 10
+  });
+
 //Import Routes
 const authRoutes = require('./routes/authRoute')
+const dashboardRoutes = require('./routes/dashboardRoute')
+
+//Import Middleware
+const {bindUserWithRequest} = require('./middleware/authMiddleware')
+const setLocals = require('./middleware/setLocals')
 
 //Playground Routes
 const validatorRoutes = require('./playground/validator')
@@ -25,14 +41,20 @@ const middleware =[
         secret: process.env.SECRET_KEY || 'SECRET_KEY',
         resave: false,
         saveUninitialized: false,
+        store: store
         //cookie: { secure: true }
-    })
+    }), 
+    bindUserWithRequest(),
+    setLocals()
 ]
 
 // Use middleware
 app.use(middleware)
 
 app.use('/auth', authRoutes)
+app.use('/dashboard', dashboardRoutes)
+
+
 //app.use('/playground', validatorRoutes)
 // Route routes 
 app.get('/', (req, res) => {
@@ -44,7 +66,7 @@ app.get('/', (req, res) => {
 // Create server 
 const PORT = process.env.PORT || 8080
 //3MnOUqdPGJwMqrK5
-mongoose.connect('mongodb+srv://nahar:nahar741@cluster0.qxga0.mongodb.net/blog?retryWrites=true&w=majority',{
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
 	useUnifiedTopology: true,
 }).then(()=> {
